@@ -32,6 +32,14 @@ scrape_configs:
           service: 'grafana'
           type: 'monitoring'
 
+  # Loki - Log aggregation
+  - job_name: 'loki'
+    static_configs:
+      - targets: ['loki:3100']
+        labels:
+          service: 'loki'
+          type: 'monitoring'
+
   # cAdvisor - Docker container metrics
   - job_name: 'cadvisor'
     static_configs:

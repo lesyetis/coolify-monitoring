@@ -9,35 +9,32 @@ clients:
   - url: http://loki:3100/loki/api/v1/push
 
 scrape_configs:
-  # Docker containers logs via Docker socket
+  # Docker containers logs
   - job_name: docker
     docker_sd_configs:
       - host: unix:///var/run/docker.sock
         refresh_interval: 5s
     relabel_configs:
-      # Extract container name
+      # Container name
       - source_labels: ['__meta_docker_container_name']
         regex: '/(.*)'
         target_label: 'container'
-
-      # Extract container ID
+      # Container ID
       - source_labels: ['__meta_docker_container_id']
         target_label: 'container_id'
-
-      # Extract image name
-      - source_labels: ['__meta_docker_container_image']
-        target_label: 'image'
-
-      # Extract container labels as Loki labels
-      - source_labels: ['__meta_docker_container_label_com_docker_compose_project']
-        target_label: 'compose_project'
-
+      # Image name
       - source_labels: ['__meta_docker_container_label_com_docker_compose_service']
-        target_label: 'compose_service'
-
-      # Network mode
-      - source_labels: ['__meta_docker_network_mode']
-        target_label: 'network_mode'
+        target_label: 'service'
+      # Project name
+      - source_labels: ['__meta_docker_container_label_com_docker_compose_project']
+        target_label: 'project'
+      # Coolify labels
+      - source_labels: ['__meta_docker_container_label_coolify_serviceName']
+        target_label: 'coolify_service'
+      - source_labels: ['__meta_docker_container_label_coolify_projectName']
+        target_label: 'coolify_project'
+      - source_labels: ['__meta_docker_container_label_coolify_environmentName']
+        target_label: 'coolify_environment'
 
   # System logs
   - job_name: system
@@ -46,15 +43,4 @@ scrape_configs:
           - localhost
         labels:
           job: varlogs
-          host: coolify-host
-          __path__: /var/log/*.log
-
-  # Docker daemon logs
-  - job_name: docker-daemon
-    static_configs:
-      - targets:
-          - localhost
-        labels:
-          job: docker
-          host: coolify-host
-          __path__: /var/log/docker.log
+          __path__: /var/log/**/*.log
