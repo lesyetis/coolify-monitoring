@@ -36,7 +36,20 @@ Stack complet de monitoring pour infrastructure Coolify avec Grafana, Prometheus
 
 ## 🚀 Quick Start
 
-### 1. Configuration Prometheus
+### 1. Auto-Deploy Configuration
+
+**✅ Auto-deploy activé sur la branche `master`**
+
+Pour activer dans Coolify :
+```
+Service → General → Automatic Deployment → Enable
+```
+
+📖 Guide complet : [AUTODEPLOY.md](AUTODEPLOY.md)
+
+**Workflow :** `git push origin master` → Coolify redéploie automatiquement !
+
+### 2. Configuration Prometheus
 
 **Le fichier `prometheus.yml` est automatiquement monté via volume mount.**
 
@@ -44,9 +57,9 @@ Stack complet de monitoring pour infrastructure Coolify avec Grafana, Prometheus
 ✅ Pas de build custom nécessaire
 ✅ Configuration via `./prometheus.yml:/etc/prometheus/prometheus.yml:ro`
 
-### 2. Déployer le stack
+### 3. Déployer le stack
 
-**Via Coolify UI:**
+**Via Coolify UI (si auto-deploy désactivé) :**
 ```
 Services → grafana-monitoring-stack → Deploy
 ```
@@ -57,7 +70,7 @@ curl -X POST https://your-coolify.com/api/v1/deploy/t8sw48oo4wco008wc804ck8o \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
-### 3. Accéder à Grafana
+### 4. Accéder à Grafana
 
 **URL**: `http://localhost:3000`
 
@@ -67,27 +80,23 @@ curl -X POST https://your-coolify.com/api/v1/deploy/t8sw48oo4wco008wc804ck8o \
 
 ⚠️ **Changer le mot de passe immédiatement!**
 
-### 4. Configurer la datasource Prometheus
+### 5. Datasources & Dashboards (Auto-Provisioned)
 
-```
-Grafana → Configuration → Data Sources → Add data source
-→ Prometheus
-→ URL: http://prometheus:9090
-→ Save & Test
-```
+**✅ Automatiquement configurés au démarrage :**
 
-### 5. Importer les dashboards
+**Datasources :**
+- Prometheus (`http://prometheus:9090`)
+- Loki (`http://loki:3100`)
 
-**Dashboards recommandés:**
-- **14282** - Docker Containers (cAdvisor)
-- **1860** - Node Exporter Full
-- **3662** - Prometheus Stats
+**Dashboards :**
+- Docker Containers Overview
+- Logs Overview
+- System Metrics
+- Weather Asnières
 
-**OU utiliser le dashboard custom:**
-```
-Dashboards → Import → Upload JSON
-→ Sélectionner dashboard-coolify-services.json
-```
+**Alerting :**
+- 7 règles d'alerte (containers + système)
+- Notifications Slack + Email
 
 ---
 
