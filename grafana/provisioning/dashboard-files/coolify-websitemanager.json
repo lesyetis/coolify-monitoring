@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"admin\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"admin\"}) < 60",
           "refId": "A"
         }
       ],
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"backend\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"backend\"}) < 60",
           "refId": "A"
         }
       ],
@@ -795,7 +795,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"worker\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"worker\"}) < 60",
           "refId": "A"
         }
       ],
@@ -1153,7 +1153,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"chrome\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"chrome\"}) < 60",
           "refId": "A"
         }
       ],
@@ -1511,7 +1511,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"redis\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"redis\"}) < 60",
           "refId": "A"
         }
       ],
@@ -1869,7 +1869,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"weaviate\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"websitemanager\", container_label_com_docker_compose_service=\"weaviate\"}) < 60",
           "refId": "A"
         }
       ],

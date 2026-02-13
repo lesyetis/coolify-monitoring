@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"pj-crawler\", container_label_com_docker_compose_service=\"pagesjaunes-api\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"pj-crawler\", container_label_com_docker_compose_service=\"pagesjaunes-api\"}) < 60",
           "refId": "A"
         }
       ],

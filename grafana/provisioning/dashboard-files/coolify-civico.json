@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"civico\", container_label_com_docker_compose_service=\"weaviate\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"civico\", container_label_com_docker_compose_service=\"weaviate\"}) < 60",
           "refId": "A"
         }
       ],

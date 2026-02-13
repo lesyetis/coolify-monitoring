@@ -20,7 +20,7 @@
       "id": 1,
       "options": { "colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": { "calcs": [ "lastNotNull" ], "fields": "", "values": false }, "textMode": "auto" },
       "pluginVersion": "12.3.3",
-      "targets": [ { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "up{container_label_coolify_projectName=\"$project\", container_label_com_docker_compose_service=\"$service\"}", "refId": "A" } ],
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"$project\", container_label_com_docker_compose_service=\"$service\"}) < 60", "refId": "A" } ],
       "title": "Service Status",
       "type": "stat"
     },

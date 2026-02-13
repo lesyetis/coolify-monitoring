@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"projetx\", container_label_com_docker_compose_service=\"payload\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"projetx\", container_label_com_docker_compose_service=\"payload\"}) < 60",
           "refId": "A"
         }
       ],
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"projetx\", container_label_com_docker_compose_service=\"mongo\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"projetx\", container_label_com_docker_compose_service=\"mongo\"}) < 60",
           "refId": "A"
         }
       ],

@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"glitchtip\", container_label_com_docker_compose_service=\"web\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"glitchtip\", container_label_com_docker_compose_service=\"web\"}) < 60",
           "refId": "A"
         }
       ],
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"glitchtip\", container_label_com_docker_compose_service=\"worker\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"glitchtip\", container_label_com_docker_compose_service=\"worker\"}) < 60",
           "refId": "A"
         }
       ],
@@ -795,7 +795,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"glitchtip\", container_label_com_docker_compose_service=\"postgres\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"glitchtip\", container_label_com_docker_compose_service=\"postgres\"}) < 60",
           "refId": "A"
         }
       ],
@@ -1153,7 +1153,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "up{container_label_coolify_projectName=\"glitchtip\", container_label_com_docker_compose_service=\"redis\"}",
+          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"glitchtip\", container_label_com_docker_compose_service=\"redis\"}) < 60",
           "refId": "A"
         }
       ],
