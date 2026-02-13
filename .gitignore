@@ -1,0 +1,15 @@
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Scripts
+fix-prometheus.sh
+QUICKSTART.sh
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
