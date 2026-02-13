@@ -17,3 +17,43 @@ contactPoints:
 
             Prends ton parapluie! ☂️
         disableResolveMessage: false
+
+  - orgId: 1
+    name: slack-monitoring
+    receivers:
+      - uid: slack-monitoring
+        type: slack
+        settings:
+          url: ${SLACK_WEBHOOK_URL}
+          title: '🚨 {{ .CommonLabels.severity | toUpper }} Alert'
+          text: |
+            **{{ .CommonAnnotations.summary }}**
+
+            {{ .CommonAnnotations.description }}
+
+            **Labels:**
+            {{ range .CommonLabels.SortedPairs }}
+            • {{ .Name }}: {{ .Value }}
+            {{ end }}
+
+            **Status:** {{ .Status }}
+        disableResolveMessage: false
+
+  - orgId: 1
+    name: email-alerts
+    receivers:
+      - uid: email-alerts
+        type: email
+        settings:
+          addresses: ${ALERT_EMAIL_TO}
+          subject: '[Coolify] {{ .CommonLabels.severity }} - {{ .CommonAnnotations.summary }}'
+          message: |
+            Alert: {{ .CommonAnnotations.summary }}
+
+            {{ .CommonAnnotations.description }}
+
+            Severity: {{ .CommonLabels.severity }}
+            Type: {{ .CommonLabels.type }}
+
+            Status: {{ .Status }}
+        disableResolveMessage: false
