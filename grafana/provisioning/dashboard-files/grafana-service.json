@@ -28,7 +28,7 @@
       "gridPos": { "h": 8, "w": 12, "x": 6, "y": 0 },
       "id": 2,
       "options": { "legend": { "calcs": [], "displayMode": "list", "placement": "bottom", "showLegend": true }, "tooltip": { "mode": "multi", "sort": "none" } },
-      "targets": [ { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "rate(container_cpu_usage_seconds_total{name=\"grafana\"}[5m]) * 100", "legendFormat": "CPU Usage", "refId": "A" }, { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "(container_memory_usage_bytes{name=\"grafana\"} / container_spec_memory_limit_bytes{name=\"grafana\"}) * 100", "legendFormat": "Memory Usage", "refId": "B" } ],
+      "targets": [ { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "rate(container_cpu_usage_seconds_total{container_label_com_docker_compose_service=\"grafana\"}[5m]) * 100", "legendFormat": "CPU Usage", "refId": "A" }, { "datasource": { "type": "prometheus", "uid": "prometheus" }, "expr": "(container_memory_usage_bytes{container_label_com_docker_compose_service=\"grafana\"} / container_spec_memory_limit_bytes{container_label_com_docker_compose_service=\"grafana\"}) * 100", "legendFormat": "Memory Usage", "refId": "B" } ],
       "title": "Grafana Resource Usage",
       "type": "timeseries"
     },
@@ -37,7 +37,7 @@
       "gridPos": { "h": 12, "w": 24, "x": 0, "y": 8 },
       "id": 3,
       "options": { "dedupStrategy": "none", "enableLogDetails": true, "prettifyLogMessage": false, "showCommonLabels": false, "showLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": false },
-      "targets": [ { "datasource": { "type": "loki", "uid": "loki" }, "expr": "{container=\"grafana\"}", "refId": "A" } ],
+      "targets": [ { "datasource": { "type": "loki", "uid": "loki" }, "expr": "{container=~\".*grafana.*\"}", "refId": "A" } ],
       "title": "Grafana Logs",
       "type": "logs"
     }

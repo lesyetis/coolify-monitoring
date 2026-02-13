@@ -32,7 +32,7 @@
       "gridPos": { "h": 12, "w": 24, "x": 0, "y": 8 },
       "id": 3,
       "options": { "dedupStrategy": "none", "enableLogDetails": true, "prettifyLogMessage": false, "showCommonLabels": false, "showLabels": false, "showTime": true, "sortOrder": "Descending", "wrapLogMessage": false },
-      "targets": [ { "datasource": { "type": "loki", "uid": "loki" }, "expr": "{container=\"loki\"}", "refId": "A" } ],
+      "targets": [ { "datasource": { "type": "loki", "uid": "loki" }, "expr": "{container=~\".*loki.*\"}", "refId": "A" } ],
       "title": "Loki Logs",
       "type": "logs"
     }
