@@ -54,6 +54,16 @@ scrape_configs:
           type: 'monitoring'
           instance: 'coolify-host'
 
+  # Weather Exporter - Météo Asnières-sur-Seine
+  - job_name: 'weather'
+    scrape_interval: 300s  # Toutes les 5 minutes (limite API gratuite)
+    static_configs:
+      - targets: ['weather-exporter:9091']
+        labels:
+          service: 'weather'
+          type: 'monitoring'
+          location: 'asnieres-sur-seine'
+
   # Plane - Project Management
   - job_name: 'plane'
     static_configs:

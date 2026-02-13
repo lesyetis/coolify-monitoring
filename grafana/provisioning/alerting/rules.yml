@@ -1,0 +1,82 @@
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: weather-alerts
+    folder: Météo
+    interval: 1h
+    rules:
+      - uid: rain-alert-morning
+        title: Alerte Pluie Matinale Asnières
+        condition: B
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 0
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: openweathermap_temperature_celsius{location="asnieres-sur-seine"}
+              refId: A
+          - refId: B
+            relativeTimeRange:
+              from: 0
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: (openweathermap_rain_3h_millimetres > 0) * 100
+              refId: B
+          - refId: C
+            relativeTimeRange:
+              from: 0
+              to: 0
+            datasourceUid: __expr__
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 30
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - B
+                  reducer:
+                    params: []
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: B
+              refId: C
+              type: threshold
+        noDataState: NoData
+        execErrState: Error
+        for: 5m
+        annotations:
+          description: |
+            Pluie prévue aujourd'hui à Asnières-sur-Seine.
+            Probabilité: {{ $values.B }}%
+            N'oublie pas ton parapluie!
+          summary: 'Alerte pluie à 8h - Asnières'
+        labels:
+          severity: info
+          location: asnieres
+        isPaused: false
+        notification_settings:
+          receiver: slack-weather-alerts
+          group_wait: 30s
+          group_interval: 5m
+          repeat_interval: 24h
+          mute_time_intervals:
+            - name: outside-morning-hours
+              time_intervals:
+                - times:
+                    - start_time: '09:00'
+                      end_time: '23:59'
+                - times:
+                    - start_time: '00:00'
+                      end_time: '07:59'
+              weekdays: ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']

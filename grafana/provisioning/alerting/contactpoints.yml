@@ -1,0 +1,19 @@
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: slack-weather-alerts
+    receivers:
+      - uid: slack-weather
+        type: slack
+        settings:
+          url: ${SLACK_WEBHOOK_URL}
+          title: '🌧️ Alerte Pluie Asnières'
+          text: |
+            ⚠️ Pluie prévue aujourd'hui à Asnières-sur-Seine
+
+            Probabilité: {{ index $values "B" }}%
+            Température: {{ index $values "A" }}°C
+
+            Prends ton parapluie! ☂️
+        disableResolveMessage: false

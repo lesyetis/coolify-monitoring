@@ -21,27 +21,28 @@ Stack complet de monitoring pour infrastructure Coolify avec Grafana, Prometheus
 |---------|------|-------------|
 | **Grafana** | 3000 | Dashboards & visualisation |
 | **Prometheus** | 9090 | Collecte & stockage métriques |
+| **Loki** | 3100 | Stockage centralisé des logs |
+| **Promtail** | 9080 | Collecte logs containers Docker |
 | **cAdvisor** | 8080 | Métriques containers Docker |
 | **Node Exporter** | 9100 | Métriques système (CPU, RAM, disk) |
+| **Weather Exporter** | 9091 | Métriques météo Asnières-sur-Seine |
 
 ### Volumes persistants
 - `prometheus-data` - Stockage métriques (30 jours retention)
 - `grafana-data` - Configuration & dashboards Grafana
+- `loki-data` - Stockage logs (30 jours retention)
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Uploader la configuration Prometheus
+### 1. Configuration Prometheus
 
-**Le fichier `prometheus.yml` doit être monté dans Coolify:**
+**Le fichier `prometheus.yml` est automatiquement monté via volume mount.**
 
-Via Coolify UI:
-```
-Services → grafana-monitoring-stack → Storage → File Storage
-→ Upload prometheus.yml
-→ Mount path: /etc/prometheus/prometheus.yml
-```
+✅ Utilise l'image officielle `prom/prometheus:latest`
+✅ Pas de build custom nécessaire
+✅ Configuration via `./prometheus.yml:/etc/prometheus/prometheus.yml:ro`
 
 ### 2. Déployer le stack
 
@@ -96,9 +97,15 @@ Dashboards → Import → Upload JSON
 coolify-monitoring/
 ├── README.md                         ← Ce fichier
 ├── SETUP.md                          ← Guide détaillé setup & configuration
+├── docker-compose-simple.yaml        ← Stack complet avec Loki/Promtail
 ├── prometheus.yml                    ← Configuration Prometheus
+├── loki-config.yml                   ← Configuration Loki
+├── promtail-config.yml               ← Configuration Promtail (logs Docker)
 ├── prometheus-queries.md             ← Requêtes Prometheus utiles
-└── dashboard-coolify-services.json   ← Dashboard Grafana custom
+├── dashboard-coolify-services.json   ← Dashboard Grafana custom
+└── grafana/provisioning/
+    ├── datasources/                  ← Prometheus + Loki auto-provisioned
+    └── dashboards/                   ← Dashboards auto-provisioned
 ```
 
 ---
@@ -119,6 +126,13 @@ coolify-monitoring/
 - Memory usage global
 - Disk usage
 - Network I/O
+
+### Logs centralisés (Loki + Promtail)
+- **Tous les logs des containers Docker** collectés automatiquement
+- Recherche full-text dans les logs
+- Filtres par container, image, compose_service
+- Corrélation logs ↔ métriques dans Grafana
+- Retention 30 jours
 
 ### Services spécifiques monitorés
 - plane (project management)
@@ -167,10 +181,12 @@ delta(container_restart_count{name!=""}[5m]) > 0
 | Service | RAM | CPU | Notes |
 |---------|-----|-----|-------|
 | Prometheus | 200-300MB | Low | Dépend du nombre de containers |
+| Loki | 150-250MB | Low | Stockage logs avec retention 30j |
+| Promtail | 50-100MB | Very Low | Collecte logs Docker |
 | Grafana | 200-400MB | Low | Augmente avec dashboards actifs |
 | cAdvisor | 100-150MB | Medium | Monitoring constant |
 | Node Exporter | 20-30MB | Very Low | Lightweight |
-| **Total** | **~500-900MB** | **Low-Medium** | Pour ~25 containers |
+| **Total** | **~720-1230MB** | **Low-Medium** | Pour ~25 containers + logs |
 
 ---
 
@@ -195,7 +211,20 @@ docker logs prometheus
 docker logs cadvisor
 ```
 
-### Grafana ne se connecte pas à Prometheus
+### Loki ne reçoit pas de logs
+
+```bash
+# Vérifier que Promtail tourne
+docker logs promtail
+
+# Vérifier la connexion Promtail → Loki
+curl http://localhost:3100/ready
+
+# Tester l'ingestion des logs
+curl -G -s "http://localhost:3100/loki/api/v1/query" --data-urlencode 'query={job="docker"}'
+```
+
+### Grafana ne se connecte pas à Prometheus/Loki
 
 ```bash
 # Vérifier le réseau Docker

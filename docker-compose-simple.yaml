@@ -21,11 +21,17 @@ services:
       retries: 10
 
   prometheus:
-    build:
-      context: .
-      dockerfile: Dockerfile.prometheus
+    image: prom/prometheus:latest
     volumes:
       - prometheus-data:/prometheus
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
     environment:
       - SERVICE_FQDN_PROMETHEUS_9090
     ports:
@@ -63,6 +69,47 @@ services:
       - /:/rootfs:ro
     restart: unless-stopped
 
+  weather-exporter:
+    image: billykwooten/openweathermap-exporter:latest
+    environment:
+      - APIKEY=${OPENWEATHER_API_KEY}
+      - CITY=Asnières-sur-Seine,FR
+      - LANG=fr
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:9091/metrics"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  loki:
+    image: grafana/loki:latest
+    volumes:
+      - loki-data:/loki
+      - ./loki-config.yml:/etc/loki/local-config.yaml:ro
+    command: -config.file=/etc/loki/local-config.yaml
+    ports:
+      - "3100"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3100/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  promtail:
+    image: grafana/promtail:latest
+    volumes:
+      - /var/log:/var/log:ro
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./promtail-config.yml:/etc/promtail/config.yml:ro
+    command: -config.file=/etc/promtail/config.yml
+    restart: unless-stopped
+    depends_on:
+      - loki
+
 volumes:
   prometheus-data:
   grafana-data:
+  loki-data:
