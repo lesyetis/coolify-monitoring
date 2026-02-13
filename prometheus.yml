@@ -2,8 +2,8 @@ global:
   scrape_interval: 15s
   evaluation_interval: 15s
   external_labels:
-    monitor: 'coolify-monitoring'
-    environment: 'production'
+    monitor: 'coolify-production'
+    environment: 'lesyetis'
 
 # Alertmanager configuration (optional - uncomment when needed)
 # alerting:
@@ -22,6 +22,15 @@ scrape_configs:
       - targets: ['localhost:9090']
         labels:
           service: 'prometheus'
+          type: 'monitoring'
+
+  # Grafana monitoring
+  - job_name: 'grafana'
+    static_configs:
+      - targets: ['grafana:3000']
+        labels:
+          service: 'grafana'
+          type: 'monitoring'
 
   # cAdvisor - Docker container metrics
   - job_name: 'cadvisor'
@@ -29,6 +38,7 @@ scrape_configs:
       - targets: ['cadvisor:8080']
         labels:
           service: 'cadvisor'
+          type: 'monitoring'
     metric_relabel_configs:
       # Keep only container metrics
       - source_labels: [__name__]
@@ -41,13 +51,94 @@ scrape_configs:
       - targets: ['node-exporter:9100']
         labels:
           service: 'node-exporter'
-          instance: 'localhost'
+          type: 'monitoring'
+          instance: 'coolify-host'
 
-  # Docker Engine metrics (if enabled on host)
-  # Requires: dockerd --metrics-addr=0.0.0.0:9323
-  - job_name: 'docker-engine'
+  # Plane - Project Management
+  - job_name: 'plane'
     static_configs:
-      - targets: ['host.docker.internal:9323']
+      - targets: ['plane.lesyetis.com']
         labels:
-          service: 'docker'
-    scrape_interval: 30s
+          service: 'plane'
+          type: 'application'
+          project: 'plane'
+
+  # GlitchTip - Error Tracking
+  - job_name: 'glitchtip'
+    static_configs:
+      - targets: ['glitchtip.lesyetis.com']
+        labels:
+          service: 'glitchtip'
+          type: 'application'
+          project: 'monitoring'
+
+  # n8n - Automation
+  - job_name: 'n8n'
+    static_configs:
+      - targets: ['n8n.lesyetis.com']
+        labels:
+          service: 'n8n'
+          type: 'application'
+          project: 'automation'
+
+  # Twenty CRM
+  - job_name: 'twenty-crm'
+    static_configs:
+      - targets: ['twenty.lesyetis.com']
+        labels:
+          service: 'twenty-crm'
+          type: 'application'
+          project: 'crm'
+
+  # NocoDB
+  - job_name: 'nocodb'
+    static_configs:
+      - targets: ['nocodb2.lesyetis.com:8080']
+        labels:
+          service: 'nocodb'
+          type: 'application'
+          project: 'database'
+
+  # Weaviate - Vector Database
+  - job_name: 'weaviate'
+    static_configs:
+      - targets: ['weaviate.lesyetis.com']
+        labels:
+          service: 'weaviate'
+          type: 'database'
+          project: 'llm'
+
+  # Design Review Tool
+  - job_name: 'design-review'
+    static_configs:
+      - targets: ['design-review.lesyetis.com']
+        labels:
+          service: 'design-review'
+          type: 'application'
+          project: 'design'
+
+  # Excalidraw
+  - job_name: 'excalidraw'
+    static_configs:
+      - targets: ['excalidraw.lesyetis.com']
+        labels:
+          service: 'excalidraw'
+          type: 'application'
+          project: 'design'
+
+  # Vexa
+  - job_name: 'vexa'
+    static_configs:
+      - targets: ['vexa.lesyetis.com']
+        labels:
+          service: 'vexa'
+          type: 'application'
+
+  # HeyForm
+  - job_name: 'heyform'
+    static_configs:
+      - targets: ['heyform.lesyetis.com']
+        labels:
+          service: 'heyform'
+          type: 'application'
+          project: 'questionnaire'
