@@ -56,6 +56,8 @@ Service → General → Automatic Deployment → Enable
 ✅ Utilise l'image officielle `prom/prometheus:latest`
 ✅ Pas de build custom nécessaire
 ✅ Configuration via `./prometheus.yml:/etc/prometheus/prometheus.yml:ro`
+✅ Retention 30 jours configurée (`--storage.tsdb.retention.time=30d`)
+✅ Healthcheck configuré (`http://localhost:9090/-/healthy`)
 
 ### 3. Déployer le stack
 
@@ -70,15 +72,17 @@ curl -X POST https://your-coolify.com/api/v1/deploy/t8sw48oo4wco008wc804ck8o \
   -H "Authorization: Bearer YOUR_TOKEN"
 ```
 
-### 4. Accéder à Grafana
+### 4. Accéder aux services
 
-**URL**: `http://localhost:3000`
-
-**Credentials:**
+**Grafana**
+- URL Production: `https://grafana.lesyetis.com`
+- URL Local: `http://localhost:3000`
 - Username: `admin`
-- Password: `admin123`
+- Password: `admin123` (⚠️ Changer immédiatement!)
 
-⚠️ **Changer le mot de passe immédiatement!**
+**Prometheus**
+- URL Production: `https://prometheus.lesyetis.com`
+- URL Local: `http://localhost:9090`
 
 ### 5. Datasources & Dashboards (Auto-Provisioned)
 
