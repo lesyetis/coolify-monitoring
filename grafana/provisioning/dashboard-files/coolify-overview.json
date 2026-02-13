@@ -58,7 +58,7 @@
       "id": 3,
       "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
       "pluginVersion": "12.3.3",
-      "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "count((time() - container_last_seen{container_label_coolify_managed=\"true\"}) < 60)", "refId": "A"}],
+      "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "count(count(container_last_seen{container_label_coolify_managed=\"true\"}) > 0)", "refId": "A"}],
       "title": "Services UP",
       "type": "stat"
     },
@@ -76,7 +76,7 @@
       "id": 4,
       "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto"},
       "pluginVersion": "12.3.3",
-      "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "count((time() - container_last_seen{container_label_coolify_managed=\"true\"}) >= 60) or vector(0)", "refId": "A"}],
+      "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "count(count(container_last_seen{container_label_coolify_managed=\"true\"}) == 0) or vector(0)", "refId": "A"}],
       "title": "Services DOWN",
       "type": "stat"
     },
@@ -125,7 +125,7 @@
       "pluginVersion": "12.3.3",
       "targets": [
         {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "count by (container_label_coolify_projectName) (container_last_seen{container_label_coolify_managed=\"true\", container_label_com_docker_compose_service!=\"\"})", "format": "table", "instant": true, "refId": "Services"},
-        {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "max by (container_label_coolify_projectName) ((time() - container_last_seen{container_label_coolify_managed=\"true\"}) < 60)", "format": "table", "instant": true, "refId": "Status"},
+        {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "max by (container_label_coolify_projectName) (count(container_last_seen{container_label_coolify_managed=\"true\"}) > 0)", "format": "table", "instant": true, "refId": "Status"},
         {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "sum by (container_label_coolify_projectName) (rate(container_cpu_usage_seconds_total{container_label_coolify_managed=\"true\"}[5m])) * 100", "format": "table", "instant": true, "refId": "CPU"},
         {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "sum by (container_label_coolify_projectName) (container_memory_usage_bytes{container_label_coolify_managed=\"true\"})", "format": "table", "instant": true, "refId": "Memory"},
         {"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": "sum by (container_label_coolify_projectName) (rate(container_network_receive_bytes_total{container_label_coolify_managed=\"true\"}[5m]))", "format": "table", "instant": true, "refId": "RX"},

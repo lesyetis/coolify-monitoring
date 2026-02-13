@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"gatsia-review\", container_label_com_docker_compose_service=\"ig0g480oc08gos040sgc8ck0-102259054833\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"gatsia-review\", container_label_com_docker_compose_service=\"ig0g480oc08gos040sgc8ck0-102259054833\"}) > 0",
           "refId": "A"
         }
       ],
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"gatsia-review\", container_label_com_docker_compose_service=\"iw4g4ow00040c88wws408kwc\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"gatsia-review\", container_label_com_docker_compose_service=\"iw4g4ow00040c88wws408kwc\"}) > 0",
           "refId": "A"
         }
       ],

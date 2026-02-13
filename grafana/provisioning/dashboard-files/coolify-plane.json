@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"web\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"web\"}) > 0",
           "refId": "A"
         }
       ],
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"api\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"api\"}) > 0",
           "refId": "A"
         }
       ],
@@ -795,7 +795,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"admin\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"admin\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1153,7 +1153,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"worker\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"worker\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1511,7 +1511,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"beat-worker\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"beat-worker\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1869,7 +1869,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"live\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"live\"}) > 0",
           "refId": "A"
         }
       ],
@@ -2227,7 +2227,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"space\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"space\"}) > 0",
           "refId": "A"
         }
       ],
@@ -2585,7 +2585,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"proxy\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"proxy\"}) > 0",
           "refId": "A"
         }
       ],
@@ -2943,7 +2943,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"plane-db\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"plane-db\"}) > 0",
           "refId": "A"
         }
       ],
@@ -3301,7 +3301,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"plane-redis\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"plane-redis\"}) > 0",
           "refId": "A"
         }
       ],
@@ -3659,7 +3659,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"plane-minio\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"plane-minio\"}) > 0",
           "refId": "A"
         }
       ],
@@ -4017,7 +4017,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"plane-mq\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"plane\", container_label_com_docker_compose_service=\"plane-mq\"}) > 0",
           "refId": "A"
         }
       ],

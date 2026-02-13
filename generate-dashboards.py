@@ -41,7 +41,7 @@ def create_service_row(service, project, y_pos):
             "id": y_pos * 10 + 1,
             "options": {"colorMode": "background", "graphMode": "none", "justifyMode": "center", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": False}, "textMode": "auto"},
             "pluginVersion": "12.3.3",
-            "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": f"(time() - container_last_seen{{container_label_coolify_projectName=\"{project}\", container_label_com_docker_compose_service=\"{service}\"}}) < 60", "refId": "A"}],
+            "targets": [{"datasource": {"type": "prometheus", "uid": "prometheus"}, "expr": f"count(container_last_seen{{container_label_coolify_projectName=\"{project}\", container_label_com_docker_compose_service=\"{service}\"}}) > 0", "refId": "A"}],
             "title": f"{service} - Status",
             "type": "stat"
         },

@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"reactive-resume\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"reactive-resume\"}) > 0",
           "refId": "A"
         }
       ],
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"chrome\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"chrome\"}) > 0",
           "refId": "A"
         }
       ],
@@ -795,7 +795,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"minio\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"minio\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1153,7 +1153,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"postgres\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"postgres\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1511,7 +1511,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"redis\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"cvme\", container_label_com_docker_compose_service=\"redis\"}) > 0",
           "refId": "A"
         }
       ],

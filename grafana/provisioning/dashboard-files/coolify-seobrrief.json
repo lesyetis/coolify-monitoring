@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"seobrrief\", container_label_com_docker_compose_service=\"backend\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"seobrrief\", container_label_com_docker_compose_service=\"backend\"}) > 0",
           "refId": "A"
         }
       ],
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"seobrrief\", container_label_com_docker_compose_service=\"frontend\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"seobrrief\", container_label_com_docker_compose_service=\"frontend\"}) > 0",
           "refId": "A"
         }
       ],
@@ -795,7 +795,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"seobrrief\", container_label_com_docker_compose_service=\"redis\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"seobrrief\", container_label_com_docker_compose_service=\"redis\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1153,7 +1153,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"seobrrief\", container_label_com_docker_compose_service=\"bullmq-board\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"seobrrief\", container_label_com_docker_compose_service=\"bullmq-board\"}) > 0",
           "refId": "A"
         }
       ],

@@ -79,7 +79,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"heyform\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"heyform\"}) > 0",
           "refId": "A"
         }
       ],
@@ -437,7 +437,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"backend\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"backend\"}) > 0",
           "refId": "A"
         }
       ],
@@ -795,7 +795,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"frontend\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"frontend\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1153,7 +1153,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"workers\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"workers\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1511,7 +1511,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"redis\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"redis\"}) > 0",
           "refId": "A"
         }
       ],
@@ -1869,7 +1869,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"keydb\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"keydb\"}) > 0",
           "refId": "A"
         }
       ],
@@ -2227,7 +2227,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"mongo\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"mongo\"}) > 0",
           "refId": "A"
         }
       ],
@@ -2585,7 +2585,7 @@
             "type": "prometheus",
             "uid": "prometheus"
           },
-          "expr": "(time() - container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"queue-dashboard\"}) < 60",
+          "expr": "count(container_last_seen{container_label_coolify_projectName=\"questionnaire\", container_label_com_docker_compose_service=\"queue-dashboard\"}) > 0",
           "refId": "A"
         }
       ],
