@@ -8,6 +8,7 @@ contactPoints:
         type: slack
         settings:
           url: ${SLACK_WEBHOOK_URL}
+          recipient: '#alerts'
           title: '🌧️ Alerte Pluie Asnières'
           text: |
             ⚠️ Pluie prévue aujourd'hui à Asnières-sur-Seine
@@ -25,6 +26,7 @@ contactPoints:
         type: slack
         settings:
           url: ${SLACK_WEBHOOK_URL}
+          recipient: '#monitoring'
           title: '🚨 {{ .CommonLabels.severity | toUpper }} Alert'
           text: |
             **{{ .CommonAnnotations.summary }}**
