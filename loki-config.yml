@@ -36,14 +36,12 @@ schema_config:
 ruler:
   alertmanager_url: http://localhost:9093
 
-# Retention configuration - keep logs for 7 days
+# Retention disabled (requires complex setup in Coolify)
+# Configure manually via UI after deployment if needed
 limits_config:
-  retention_period: 168h
+  retention_period: 0
 
 compactor:
   working_directory: /loki/compactor
   compaction_interval: 10m
-  retention_enabled: true
-  retention_delete_delay: 2h
-  retention_delete_worker_count: 150
-  delete_request_store: filesystem
+  retention_enabled: false
