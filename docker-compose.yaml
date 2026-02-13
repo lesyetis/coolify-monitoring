@@ -2,26 +2,18 @@ version: '3.8'
 
 services:
   prometheus:
-    image: prom/prometheus:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.prometheus
     container_name: prometheus
     volumes:
       - prometheus-data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--storage.tsdb.retention.time=30d'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--web.enable-lifecycle'
-    configs:
-      - source: prometheus_config
-        target: /etc/prometheus/prometheus.yml
     restart: unless-stopped
     networks:
       - coolify
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.prometheus.rule=Host(\`prometheus.lesyetis.com\`)"
+      - "traefik.http.routers.prometheus.rule=Host(`prometheus.lesyetis.com`)"
       - "traefik.http.routers.prometheus.entrypoints=websecure"
       - "traefik.http.routers.prometheus.tls=true"
       - "traefik.http.routers.prometheus.tls.certresolver=letsencrypt"
@@ -44,7 +36,7 @@ services:
       - prometheus
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.grafana.rule=Host(\`monitoring.lesyetis.com\`)"
+      - "traefik.http.routers.grafana.rule=Host(`monitoring.lesyetis.com`)"
       - "traefik.http.routers.grafana.entrypoints=websecure"
       - "traefik.http.routers.grafana.tls=true"
       - "traefik.http.routers.grafana.tls.certresolver=letsencrypt"
@@ -89,7 +81,3 @@ networks:
 volumes:
   prometheus-data:
   grafana-data:
-
-configs:
-  prometheus_config:
-    file: ./prometheus.yml
