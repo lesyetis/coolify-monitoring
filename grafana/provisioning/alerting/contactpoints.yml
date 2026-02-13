@@ -1,45 +1,42 @@
 apiVersion: 1
 
 contactPoints:
-  - orgId: 1
-    name: slack-weather-alerts
-    receivers:
-      - uid: slack-weather
-        type: slack
-        settings:
-          url: ${SLACK_WEBHOOK_URL}
-          recipient: '#alerts'
-          title: '🌧️ Alerte Pluie Asnières'
-          text: |
-            ⚠️ Pluie prévue aujourd'hui à Asnières-sur-Seine
-
-            Probabilité: {{ index $values "B" }}%
-            Température: {{ index $values "A" }}°C
-
-            Prends ton parapluie! ☂️
-        disableResolveMessage: false
-
-  - orgId: 1
-    name: slack-monitoring
-    receivers:
-      - uid: slack-monitoring
-        type: slack
-        settings:
-          url: ${SLACK_WEBHOOK_URL}
-          recipient: '#monitoring'
-          title: '🚨 {{ .CommonLabels.severity | toUpper }} Alert'
-          text: |
-            **{{ .CommonAnnotations.summary }}**
-
-            {{ .CommonAnnotations.description }}
-
-            **Labels:**
-            {{ range .CommonLabels.SortedPairs }}
-            • {{ .Name }}: {{ .Value }}
-            {{ end }}
-
-            **Status:** {{ .Status }}
-        disableResolveMessage: false
+  # Slack contact points disabled - Grafana latest requires OAuth token instead of webhooks
+  # To re-enable: configure Slack OAuth app and add token
+  # - orgId: 1
+  #   name: slack-weather-alerts
+  #   receivers:
+  #     - uid: slack-weather
+  #       type: slack
+  #       settings:
+  #         token: ${SLACK_OAUTH_TOKEN}
+  #         recipient: '#alerts'
+  #         title: '🌧️ Alerte Pluie Asnières'
+  #         text: |
+  #           ⚠️ Pluie prévue aujourd'hui à Asnières-sur-Seine
+  #           Probabilité: {{ index $values "B" }}%
+  #           Température: {{ index $values "A" }}°C
+  #           Prends ton parapluie! ☂️
+  #       disableResolveMessage: false
+  #
+  # - orgId: 1
+  #   name: slack-monitoring
+  #   receivers:
+  #     - uid: slack-monitoring
+  #       type: slack
+  #       settings:
+  #         token: ${SLACK_OAUTH_TOKEN}
+  #         recipient: '#monitoring'
+  #         title: '🚨 {{ .CommonLabels.severity | toUpper }} Alert'
+  #         text: |
+  #           **{{ .CommonAnnotations.summary }}**
+  #           {{ .CommonAnnotations.description }}
+  #           **Labels:**
+  #           {{ range .CommonLabels.SortedPairs }}
+  #           • {{ .Name }}: {{ .Value }}
+  #           {{ end }}
+  #           **Status:** {{ .Status }}
+  #       disableResolveMessage: false
 
   - orgId: 1
     name: email-alerts
